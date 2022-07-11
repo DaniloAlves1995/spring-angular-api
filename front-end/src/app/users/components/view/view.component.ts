@@ -3,8 +3,10 @@ import { User } from './../../model/user';
 import { Country } from '@angular-material-extensions/select-country';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { catchError, Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { UsersService } from '../../services/users.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 
 @Component({
@@ -27,7 +29,8 @@ export class ViewComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private usersService: UsersService
+    private usersService: UsersService,
+    public dialog: MatDialog
   ) {
     //init form property as a form field group
     this.form = this.formBuilder.group({
@@ -40,7 +43,13 @@ export class ViewComponent implements OnInit {
     });
 
     this.code = "+COD";
-    this.users$ = this.usersService.list();
+    this.users$ = this.usersService.list()
+    .pipe(
+      catchError(error => {
+        this.onError('Error to load users.');
+        return of([])
+      })
+    );
 
    }
 
@@ -87,5 +96,14 @@ export class ViewComponent implements OnInit {
     */
 
   }
+
+  onError(errorMsg: string) {
+    /*
+     Show error message as dialog box
+    */
+    this.dialog.open(ErrorDialogComponent, {
+      data: errorMsg
+  });
+}
 
 }
