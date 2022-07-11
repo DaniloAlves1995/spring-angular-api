@@ -1,7 +1,10 @@
+
 import { User } from './../../model/user';
 import { Country } from '@angular-material-extensions/select-country';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { catchError, Observable } from 'rxjs';
+import { UsersService } from '../../services/users.service';
 
 
 @Component({
@@ -11,6 +14,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ViewComponent implements OnInit {
 
+  //properties to control forms
   code: string;
   form: FormGroup;
   email = new FormControl('', [Validators.required, Validators.email]);
@@ -18,9 +22,13 @@ export class ViewComponent implements OnInit {
 
   displayedColumns = ['name', 'gender', 'birth', 'country', 'phone', 'email'];
 
-  users$: User[];
+  //observable to received the users list from services
+  users$: Observable<User[]>;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private usersService: UsersService
+  ) {
     //init form property as a form field group
     this.form = this.formBuilder.group({
       name: [null],
@@ -32,9 +40,7 @@ export class ViewComponent implements OnInit {
     });
 
     this.code = "+COD";
-    this.users$ = [
-      { id: 1, name: 'Danilo Alves', gender: 'male', birth: '27/05/1995', country: 'Brazil', phone: '+5588996735281', email: 'danilo@ufc.br'}
-    ];
+    this.users$ = this.usersService.list();
 
    }
 
