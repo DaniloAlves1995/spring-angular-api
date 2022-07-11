@@ -53,10 +53,22 @@ export class ViewComponent implements OnInit {
         return of([])
       })
     );
-
    }
 
   ngOnInit(): void {
+  }
+
+  listUsers(){
+    /*
+      consume the API to get all registered users.
+    */
+    this.users$ = this.usersService.list()
+    .pipe(
+      catchError(error => {
+        this.onError('Error to load users.');
+        return of([])
+      })
+    );
   }
 
   getErrorMessage(field: FormControl, type: string) {
@@ -86,11 +98,7 @@ export class ViewComponent implements OnInit {
     /*
      Clear form field.
     */
-    this.form.controls['name'].setValue('');
-    this.form.controls['birth'].setValue('');
-    this.form.controls['gender'].setValue('');
-    this.form.controls['phone'].setValue('');
-    this.form.controls['email'].setValue('');
+    this.form.reset();
   }
 
   onSubmit(){
@@ -108,7 +116,11 @@ export class ViewComponent implements OnInit {
       data['country'] = data['country'] ? data['country'].name : '';
 
       this.usersService.save(data).subscribe({
-        next: () => this.onSuccess(),
+        next: () => {
+          this.onSuccess();
+          this.onClear();
+          this.listUsers();
+        },
         error: () => this.onFeilure()
       });
     }
