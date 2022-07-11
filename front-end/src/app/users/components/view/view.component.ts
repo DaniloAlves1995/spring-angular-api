@@ -60,7 +60,7 @@ export class ViewComponent implements OnInit {
 
   getErrorMessage(field: FormControl, type: string) {
     /*
-
+      Controls the error messages that are displayed for phone and email fields.
     */
     if (field.hasError('required')) {
       return type == 'phone' ? 'You must enter a phone number' : 'You must enter a email';
@@ -101,8 +101,7 @@ export class ViewComponent implements OnInit {
     data['phone'] = data['country'].callingCode + data['phone'];
     data['country'] = data['country'].name;
 
-    console.log(data);
-    this.usersService.save(this.form.value).subscribe({
+    this.usersService.save(data).subscribe({
       next: () => this.onSuccess(),
       error: () => this.onFeilure()
     });

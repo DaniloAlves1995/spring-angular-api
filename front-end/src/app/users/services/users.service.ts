@@ -10,7 +10,7 @@ import { delay, first, tap } from 'rxjs';
 export class UsersService {
 
   //API end-point
-  private readonly API = 'api/users';
+  private readonly API = 'http://localhost:8080/api/users';
 
   constructor(private httpClient: HttpClient) { }
 
