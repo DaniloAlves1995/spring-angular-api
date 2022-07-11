@@ -1,7 +1,10 @@
+import { ViewComponent } from './components/view/view.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: '', component: ViewComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
