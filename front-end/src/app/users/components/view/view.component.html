@@ -1,2 +1,66 @@
-<p>view works!</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>
+      <img src="assets/logo_2.png" class="logo2" />
+      <mat-card-title>User registration</mat-card-title>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form" class="form-user">
+      <mat-form-field class="first-column min-width">
+        <input matInput placeholder="Nome" formControlName="name" required>
+        <mat-icon matSuffix>person_filled</mat-icon>
+      </mat-form-field>
+
+      <mat-select-country [required]="true"
+        label="Country"
+        style="margin-right: 2rem;" formControlName="country"
+        (onCountrySelected)="onCountrySelected($event)">
+      </mat-select-country>
+
+      <mat-form-field appearance="fill" style="width: 84px;">
+        <mat-label>Country code</mat-label>
+        <input matInput placeholder="Placeholder" [value]="code" disabled >
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Phone number</mat-label>
+        <input matInput placeholder="Placeholder" [formControl]="phone" required>
+        <mat-error *ngIf="phone.invalid">{{getErrorMessage(phone, 'phone')}}</mat-error>
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="first-column min-width">
+        <mat-label>Choose your birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birth">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="margin-right: 6rem;">
+        <mat-label>Gender</mat-label>
+        <select formControlName="gender" matNativeControl required>
+          <option value="male">Male </option>
+          <option value="female">Female</option>
+          <option value="lgbt">LGBTQIA+</option>
+          <option value="not_want">I prefer not to define</option>
+        </select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="min-width">
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="user@example.com" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage(email, 'email')}}</mat-error>
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+
+    </form>
+  </mat-card-content>
+  <mat-card-actions style="text-align: center;">
+    <button mat-raised-button (click)="onSubmit()" color="primary">SAVE</button>
+    <button mat-raised-button (click)="onClear()">CLEAR</button>
+  </mat-card-actions>
+</mat-card>
+
 
