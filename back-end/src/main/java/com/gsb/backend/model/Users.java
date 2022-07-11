@@ -4,6 +4,19 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * <h1>Users class</h1>
+ * The Users class implements an entity of this API,
+ * which simply has the common data of an user.
+ * <p>
+ * The class uses dependency injection to be used as object
+ * directly mapped to database by JPA and to implements getts
+ * and setts methods by lombok.
+ *
+ * @author  Danilo Alves
+ * @version 1.0
+ * @since   2022-07-11
+ */
 @Data
 @Entity
 public class Users {
@@ -28,8 +41,5 @@ public class Users {
 
     @Column(length = 40, nullable = false)
     private String email;
-
-
-
 
 }
