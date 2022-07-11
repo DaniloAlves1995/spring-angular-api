@@ -41,3 +41,23 @@
 /front-end/.DS_Store
 /front-end/Thumbs.db
 
+/back-end/HELP.md
+/back-end/target/
+/back-end/!.mvn/wrapper/maven-wrapper.jar
+/back-end/!**/src/main/**/target/
+/back-end/!**/src/test/**/target/
+
+### STS ###
+/back-end/.apt_generated
+/back-end/.classpath
+/back-end/.factorypath
+/back-end/.project
+/back-end/.settings
+/back-end/.springBeans
+/back-end/.sts4-cache
+
+### IntelliJ IDEA ###
+/back-end/.idea
+/back-end/*.iws
+/back-end/*.iml
+/back-end/*.ipr

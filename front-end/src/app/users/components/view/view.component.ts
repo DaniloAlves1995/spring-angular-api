@@ -7,6 +7,7 @@ import { catchError, Observable, of } from 'rxjs';
 import { UsersService } from '../../services/users.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class ViewComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private usersService: UsersService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {
     //init form property as a form field group
     this.form = this.formBuilder.group({
@@ -94,7 +96,30 @@ export class ViewComponent implements OnInit {
     /*
      Call the service and send data.
     */
+    let data = this.form.value
+    data['birth'] = data['birth'].toLocaleDateString("en-US");
+    data['phone'] = data['country'].callingCode + data['phone'];
+    data['country'] = data['country'].name;
 
+    console.log(data);
+    this.usersService.save(this.form.value).subscribe({
+      next: () => this.onSuccess(),
+      error: () => this.onFeilure()
+    });
+  }
+
+  private onSuccess() {
+    /*
+     Show success message with snack bar
+    */
+    this._snackBar.open('User saved with success!', '', {duration: 5000});
+  }
+
+  private onFeilure() {
+    /*
+     Show error message with snack bar
+    */
+    this._snackBar.open('Error to save user.', '', {duration: 5000});
   }
 
   onError(errorMsg: string) {
