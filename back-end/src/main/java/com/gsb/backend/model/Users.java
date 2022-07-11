@@ -27,16 +27,16 @@ public class Users {
     @Column(length = 60, nullable = false)
     private String name;
 
-    @Column(length = 12, nullable = true)
+    @Column(length = 12, nullable = false)
     private String birth;
 
     @Column(length = 25, nullable = false)
     private String gender;
 
-    @Column(length = 60, nullable = false)
+    @Column(length = 60, nullable = true)
     private String country;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = true)
     private String phone;
 
     @Column(length = 40, nullable = false)

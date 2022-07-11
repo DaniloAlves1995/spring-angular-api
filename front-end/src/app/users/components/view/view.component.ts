@@ -21,8 +21,9 @@ export class ViewComponent implements OnInit {
   code: string;
   form: FormGroup;
   email = new FormControl('', [Validators.required, Validators.email]);
-  phone = new FormControl('', [Validators.required, Validators.pattern("^[0-9]+$")]);
+  phone = new FormControl('', [Validators.pattern("^[0-9]+$")]);
 
+  //name of columns to show on the front
   displayedColumns = ['name', 'gender', 'birth', 'country', 'phone', 'email'];
 
   //observable to received the users list from services
@@ -94,16 +95,33 @@ export class ViewComponent implements OnInit {
 
   onSubmit(){
     /*
-     Call the service and send data.
+     Call the service and send data to API.
     */
-    let data = this.form.value
-    data['birth'] = data['birth'].toLocaleDateString("en-US");
-    data['phone'] = data['country'].callingCode + data['phone'];
-    data['country'] = data['country'].name;
+   console.log(this.form.value);
+    if (!this.form.valid) {
+      this._snackBar.open('Please enter all required fields.', '', {duration: 5000});
+      this.validateAllFormFields(this.form);
+    } else {
+      let data = this.form.value
+      data['birth'] = data['birth'].toLocaleDateString("en-US");
+      data['phone'] = data['country'] ? data['country'].callingCode : '' + data['phone'];
+      data['country'] = data['country'] ? data['country'].name : '';
 
-    this.usersService.save(data).subscribe({
-      next: () => this.onSuccess(),
-      error: () => this.onFeilure()
+      this.usersService.save(data).subscribe({
+        next: () => this.onSuccess(),
+        error: () => this.onFeilure()
+      });
+    }
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
     });
   }
 

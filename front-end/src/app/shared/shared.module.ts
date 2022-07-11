@@ -2,6 +2,8 @@ import { AppMaterialModule } from './app-material/app-material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { GenderPipe } from './pipes/gender.pipe';
+
 
 
 /*
@@ -10,14 +12,16 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
 */
 @NgModule({
   declarations: [
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    GenderPipe
   ],
   imports: [
     CommonModule,
     AppMaterialModule
   ],
   exports: [
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    GenderPipe
   ]
 })
 export class SharedModule { }
