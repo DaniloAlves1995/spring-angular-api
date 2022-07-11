@@ -22,3 +22,15 @@ mat-card {
   min-width: 200px;
 }
 
+table {
+  width: 100%;
+}
+
+.loading-spinner {
+  padding: 25px;
+  background-color: rgb(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

@@ -1,3 +1,4 @@
+import { User } from './../../model/user';
 import { Country } from '@angular-material-extensions/select-country';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +16,10 @@ export class ViewComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   phone = new FormControl('', [Validators.required, Validators.pattern("^[0-9]+$")]);
 
+  displayedColumns = ['name', 'gender', 'birth', 'country', 'phone', 'email'];
+
+  users$: User[];
+
   constructor(private formBuilder: FormBuilder) {
     //init form property as a form field group
     this.form = this.formBuilder.group({
@@ -27,6 +32,9 @@ export class ViewComponent implements OnInit {
     });
 
     this.code = "+COD";
+    this.users$ = [
+      { id: 1, name: 'Danilo Alves', gender: 'male', birth: '27/05/1995', country: 'Brazil', phone: '+5588996735281', email: 'danilo@ufc.br'}
+    ];
 
    }
 

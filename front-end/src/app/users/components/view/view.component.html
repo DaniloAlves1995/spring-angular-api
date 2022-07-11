@@ -7,22 +7,25 @@
   </mat-card-header>
   <mat-card-content>
     <form [formGroup]="form" class="form-user">
+
+      <!-- Name field -->
       <mat-form-field class="first-column min-width">
         <input matInput placeholder="Nome" formControlName="name" required>
         <mat-icon matSuffix>person_filled</mat-icon>
       </mat-form-field>
 
-      <mat-select-country [required]="true"
-        label="Country"
-        style="margin-right: 2rem;" formControlName="country"
+      <!-- Country field -->
+      <mat-select-country [required]="true" label="Country" style="margin-right: 2rem;" formControlName="country"
         (onCountrySelected)="onCountrySelected($event)">
       </mat-select-country>
 
+      <!-- Cod field -->
       <mat-form-field appearance="fill" style="width: 84px;">
         <mat-label>Country code</mat-label>
-        <input matInput placeholder="Placeholder" [value]="code" disabled >
+        <input matInput placeholder="Placeholder" [value]="code" disabled>
       </mat-form-field>
 
+      <!-- Phone field -->
       <mat-form-field appearance="legacy">
         <mat-label>Phone number</mat-label>
         <input matInput placeholder="Placeholder" [formControl]="phone" required>
@@ -30,6 +33,7 @@
         <mat-icon matSuffix>phone</mat-icon>
       </mat-form-field>
 
+      <!-- Birth field -->
       <mat-form-field appearance="fill" class="first-column min-width">
         <mat-label>Choose your birth</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="birth">
@@ -38,6 +42,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
+      <!-- Gender field -->
       <mat-form-field appearance="fill" style="margin-right: 6rem;">
         <mat-label>Gender</mat-label>
         <select formControlName="gender" matNativeControl required>
@@ -48,6 +53,7 @@
         </select>
       </mat-form-field>
 
+      <!-- Email field -->
       <mat-form-field appearance="legacy" class="min-width">
         <mat-label>Enter your email</mat-label>
         <input matInput placeholder="user@example.com" [formControl]="email" required>
@@ -63,4 +69,66 @@
   </mat-card-actions>
 </mat-card>
 
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-card-title>Users registred</mat-card-title>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="users$ as users; else loading">
+      <table mat-table [dataSource]="users" class="mat-elevation-z8">
 
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <!-- Gender Column -->
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef>Gender</th>
+          <td mat-cell *matCellDef="let element">{{ element.gender }}
+          </td>
+        </ng-container>
+
+        <!-- Birth Column -->
+        <ng-container matColumnDef="birth">
+          <th mat-header-cell *matHeaderCellDef>Birth</th>
+          <td mat-cell *matCellDef="let element">{{ element.birth }}
+          </td>
+        </ng-container>
+
+        <!-- Country Column -->
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef>Country</th>
+          <td mat-cell *matCellDef="let element">{{ element.country }}
+          </td>
+        </ng-container>
+
+        <!-- Phone Column -->
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef>Phone</th>
+          <td mat-cell *matCellDef="let element">{{ element.phone }}
+          </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <!--esse tamplete só é mostrtado quando chamado por uma lógica do angular-->
+    <ng-template #loading>
+      <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

@@ -3,10 +3,10 @@
   They have equivalence to back-end
 */
 export interface User {
-  _id: number;
+  id: number;
   name: string;
   birth: string;
-  sex: string;
+  gender: string;
   country: string;
   phone: string;
   email: string;
