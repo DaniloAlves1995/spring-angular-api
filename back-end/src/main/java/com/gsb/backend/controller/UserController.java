@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @AllArgsConstructor
 public class UserController {
     private final UserRepository courseRepository;
