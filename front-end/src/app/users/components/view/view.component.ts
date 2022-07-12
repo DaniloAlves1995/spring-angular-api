@@ -112,7 +112,7 @@ export class ViewComponent implements OnInit {
     } else {
       let data = this.form.value
       data['birth'] = data['birth'].toLocaleDateString("en-US");
-      data['phone'] = data['country'] ? data['country'].callingCode : '' + data['phone'];
+      data['phone'] = data['country'] && data['phone'] ? data['country'].callingCode + data['phone'] : '' + data['phone'];
       data['country'] = data['country'] ? data['country'].name : '';
 
       this.usersService.save(data).subscribe({

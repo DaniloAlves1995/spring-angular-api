@@ -11,27 +11,63 @@ The API has an endpoint to be accessed by two HTTP methods, a POST to register u
 
 ## Code Organization
 
-- Front-end: packages inside the app
+- Front-end: packages inside the app packege.
 
 | package | Description |
 | --- | --- |
-| users |  |
-| users/components | Gets domain part and check its validation |
-| users/model | Gets user name and check its validation |
-| users/services | Starts the validation process after API call |
-| shared | Starts the validation process after API call |
-| shared/app-material | Starts the validation process after API call |
-| shared/components | Starts the validation process after API call |
-| shared/pipes | Starts the validation process after API call |
+| users | This module has all the functions releted to user |
+| users/components | The application components |
+| users/model | The entities of application |
+| users/services | The layer to access external API |
+| shared | This module has functionalities related for all application |
+| shared/app-material | Imports of APIs of material design |
+| shared/components | Components that can be used for differents modules |
+| shared/pipes | Generic pipes that can be used for differents modules |
+
+- Back-end: packages inside the src/main/java/com.gsb.backend.
+
+| package | Description |
+| --- | --- |
+| controller | This packege has the endpoints of API |
+| model | The entities with correspondence to the database |
+| repository | The Layer to access the database by interfaces |
+
 
 ## Execution
 
-1. Install used packages:
+- Back-end
+ 
+Make sure you have Maven installed, if you don't, see here: https://maven.apache.org/download.cgi
 
-`npm install`
 
-2. In the same folder as the file, run:
+1. Inside the root execute maven to build:
 
+```
+nvn package
+```
+
+2. In the same folder, run:
+```
+java -jar target/back-end-0.0.1-SNAPSHOT.jar com.gsb.backend.BackEndApplication
+```
+
+The Tomcat server will start running the API on localhost port 8080.
+
+- Front-end
+
+Make sure you have Node.JS installed, if you don't, see here: https://nodejs.org/en/download/
+
+1. Inside the root (same folder of "package.json" file) execute to download the dependences:
+```
+npm install
+```
+
+2. In the same folder, run:
+```
+npm run start
+```
+
+The application will start the execution on localhost port 4200.
 
 ## Access in AWS
 
